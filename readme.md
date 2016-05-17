@@ -13,4 +13,4 @@ For my Q1 project I'd like to make a Madlib generator.
 * [Semantic UI](http://semantic-ui.com/) for buttons
 * [Wordnik API](https://www.wordnik.com/) to query part of speech
 * [Bounce.js](http://bouncejs.com/) for squirrelly fun bits, and fun animations
-* [JQuery](https://jquery.com/) because duh
+* [JQuery](https://jquery.com/) because it was mandated.

@@ -1,0 +1,44 @@
+.cabin {
+  font-family: 'Cabin';
+  font-size: 1.5em; }
+
+body {
+  font-family: 'Cabin';
+  background-color: lightgrey; }
+
+#input1, #madlib, #wildcard, #result {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+#input1 .form .field:last-of-type {
+  display: flex;
+  justify-content: flex-end; }
+
+#wildcard .form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%; }
+
+#logo {
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.5em;
+  margin: 20px auto; }
+
+#hint ul {
+  list-style-type: none; }
+
+.muted {
+  color: #D3D3D3; }
+
+.hidden {
+  display: none; }
+
+/*# sourceMappingURL=site.css.map */

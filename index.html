@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Madlib.io</title>
+
+  <!-- fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Cabin:600' rel='stylesheet' type='text/css'>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+
+  <!-- semantic UI -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+
+  <!-- site specific -->
+  <script type="text/javascript" src='app.js'></script>
+  <link rel="stylesheet" href="site.css">
+</head>
+
+
+
+
+
+<body>
+  <header class="ui inverted segment">
+    <div class="header item cabin">
+      Madlib.io
+    </div>
+    <div class="ui bottom attached orange progress" id="progress">
+      <div class="bar"></div>
+    </div>
+  </header>
+
+  <div id="logo">M</div>
+
+  <div class="manifesto hidden">A spectre is haunting Europe — the spectre of communism. All the powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Tsar, Metternich and Guizot, French Radicals and German police-spies.
+
+Where is the party in opposition that has not been decried as communistic by its opponents in power? Where is the opposition that has not hurled back the branding reproach of communism, against the more advanced opposition parties, as well as against its reactionary adversaries?
+
+Two things result from this fact:
+
+I. Communism is already acknowledged by all European powers to be itself a power.
+
+II. It is high time that Communists should openly, in the face of the whole world, publish their views, their aims, their tendencies, and meet this nursery tale of the Spectre of Communism with a manifesto of the party itself.</div>
+
+<!-- ==================== -->
+<!--    text input        -->
+<!-- ==================== -->
+
+  <div id='input1' class="container ui centered segment">
+    <div class="ui form">
+      <div class="field">
+        <label>Name your Madlib!</label>
+        <input type="text" id='name' placeholder="My Hilarious Madlib">
+      </div>
+      <div class="field">
+        <label>Enter text:</label>
+        <textarea id='input' rows="20" cols="60"></textarea>
+      </div>
+      <div class="field">
+        <button class="ui primary button" id="submitText" >Submit</button>
+      </div>
+    </div>
+  </div>
+
+<!-- ==================== -->
+<!--   choose wildcards   -->
+<!-- ==================== -->
+
+  <div id='wildcard' class="container ui centered segment">
+    <div class="ui top attached label">Select words to wildcard!</div>
+    <div class="ui form">
+      <div class="field">
+
+      </div>
+      <div class="field">
+
+      </div>
+    </div>
+
+  </div>
+
+<!-- ==================== -->
+<!--   wildcard hints     -->
+<!-- ==================== -->
+
+  <div id='hints' class="container ui centered segment">
+    <div class="ui top attached label">Customize your wildcard hints! <span class='muted'>(or leave it blank to use the default)</span></div>
+    <div class="ui stackable grid">
+        <div class="eight wide column col1 ui form">
+        </div>
+        <div class="eight wide column col2 ui form">
+        </div>
+    </div>
+  </div>
+
+<!-- ==================== -->
+<!--       madlib form    -->
+<!-- ==================== -->
+
+
+  <div id='madlib' class="container ui centered segment">
+    <div class="ui top attached label">Fill out the form to create the story!</div>
+    <h1 class="madlibName">Madlib Name</h1>
+    <form class="ui form"></form>
+  </div>
+
+<!-- ==================== -->
+<!--       result         -->
+<!-- ==================== -->
+
+  <div id='result' class="container ui centered segment">
+    <h1 class="madlibName">Madlib Name</h1>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+
+</body>
+</html>

@@ -6,12 +6,19 @@ body {
   font-family: 'Cabin';
   background-color: lightgrey; }
 
-#input1, #madlib, #wildcard, #result {
+#input1, #wildcard > .box, #result > .box {
   display: flex;
   flex-direction: column;
   align-items: center; }
 
-#input1 .form .field:last-of-type {
+#wildcard, #hints, #madlib, #result {
+  display: none;
+  position: relative; }
+
+.box {
+  margin: 10px 0; }
+
+#input1 .field:last-of-type, #madlib .field:last-of-type, #hints .field:last-of-type {
   display: flex;
   justify-content: flex-end; }
 
@@ -21,7 +28,11 @@ body {
   justify-content: center;
   width: 80%; }
 
+#madlib h1 {
+  text-align: center; }
+
 #logo {
+  position: relative;
   width: 100px;
   height: 100px;
   background-color: grey;
@@ -32,13 +43,47 @@ body {
   font-size: 4.5em;
   margin: 20px auto; }
 
-#hint ul {
-  list-style-type: none; }
+.tooltip {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-color: grey;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 15px;
+  bottom: 45px;
+  color: white;
+  cursor: pointer; }
+
+.top {
+  position: relative; }
+
+#result p {
+  width: 80%;
+  max-width: 750px;
+  font-size: 1.3em; }
 
 .muted {
   color: #D3D3D3; }
 
+.highlite {
+  background-color: orange;
+  text-transform: uppercase;
+  padding: 2px 4px;
+  border-radius: 3px; }
+
 .hidden {
   display: none; }
+
+.alert {
+  color: #E68583; }
+
+.topTen {
+  margin-top: 10px; }
+
+.rightTen {
+  margin-right: 10px; }
 
 /*# sourceMappingURL=site.css.map */

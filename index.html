@@ -33,7 +33,10 @@
     </div>
   </header>
 
-  <div id="logo">M</div>
+  <div class="top">
+    <div id="logo">M</div>
+    <!-- <div class="tooltip">?</div> -->
+  </div>
 
   <div class="manifesto hidden">A spectre is haunting Europe — the spectre of communism. All the powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Tsar, Metternich and Guizot, French Radicals and German police-spies.
 
@@ -48,8 +51,11 @@ II. It is high time that Communists should openly, in the face of the whole worl
 <!-- ==================== -->
 <!--    text input        -->
 <!-- ==================== -->
-
   <div id='input1' class="container ui centered segment">
+    <div class="ui top attached label">
+      <span class="ui tooltip" data-title="wtf is this?" data-content="Paste some text in the box, or write your own story!">?</span>
+      Create your own Madlib!
+    </div>
     <div class="ui form">
       <div class="field">
         <label>Name your Madlib!</label>
@@ -70,13 +76,18 @@ II. It is high time that Communists should openly, in the face of the whole worl
 <!-- ==================== -->
 
   <div id='wildcard' class="container ui centered segment">
-    <div class="ui top attached label">Select words to wildcard!</div>
-    <div class="ui form">
-      <div class="field">
-
+    <div class="box">
+      <div class="ui top attached label">
+        <span class="ui tooltip" data-title="wtf is this?" data-content="Click on the boxes you want to make into blanks for your friend to fill out later.">?</span>
+        Select words to wildcard!
       </div>
-      <div class="field">
+      <div class="ui form">
+        <div class="field">
 
+        </div>
+        <div class="field">
+
+        </div>
       </div>
     </div>
 
@@ -87,7 +98,10 @@ II. It is high time that Communists should openly, in the face of the whole worl
 <!-- ==================== -->
 
   <div id='hints' class="container ui centered segment">
-    <div class="ui top attached label">Customize your wildcard hints! <span class='muted'>(or leave it blank to use the default)</span></div>
+    <div class="ui top attached label">
+      <span class="ui tooltip" data-title="wtf is this?" data-content="The hint is how your blank will be described to your friend.">?</span>
+      Customize your wildcard hints! <span class='muted'>(or leave it blank to use the default)</span>
+    </div>
     <div class="ui stackable grid">
         <div class="eight wide column col1 ui form">
         </div>
@@ -102,9 +116,17 @@ II. It is high time that Communists should openly, in the face of the whole worl
 
 
   <div id='madlib' class="container ui centered segment">
-    <div class="ui top attached label">Fill out the form to create the story!</div>
+    <div class="ui top attached label">
+      <span class="ui tooltip" data-title="wtf is this?" data-content="Pass this to your friend! Have them fill out the form you made!">?</span>
+      Fill out the form to create the story!
+    </div>
     <h1 class="madlibName">Madlib Name</h1>
-    <form class="ui form"></form>
+    <div class="ui stackable grid">
+        <div class="eight wide column col1 ui form">
+        </div>
+        <div class="eight wide column col2 ui form">
+        </div>
+    </div>
   </div>
 
 <!-- ==================== -->
@@ -112,9 +134,15 @@ II. It is high time that Communists should openly, in the face of the whole worl
 <!-- ==================== -->
 
   <div id='result' class="container ui centered segment">
-    <h1 class="madlibName">Madlib Name</h1>
+    <div class="ui top attached label">
+      <span class="ui tooltip" data-content="Quit asking me questions already. You did it, OK?  You made a Madlib.">?</span>
+      You did it!
+    </div>
+    <div class="box">
+      <h1 class="madlibName">Madlib Name</h1>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <span class="highlite">exercitation</span> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
   </div>
 
 </body>

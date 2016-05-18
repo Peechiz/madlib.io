@@ -18,13 +18,24 @@ body {
   align-items: center;
 }
 
-#input1, #madlib, #wildcard, #result {
+#wildcard, #hints, #madlib, #result {
+  display: none;
+  position: relative;
+}
+
+#input1, #wildcard > .box, #result > .box{
   @extend %flexcenter;
 }
 
-#input1 .form .field:last-of-type {
-  display: flex;
-  justify-content: flex-end;
+.box {
+  margin: 10px 0;
+}
+
+#input1, #madlib, #hints {
+   .field:last-of-type {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 #wildcard {
@@ -36,7 +47,14 @@ body {
   }
 }
 
+#madlib {
+  h1 {
+    text-align: center;
+  }
+}
+
 #logo {
+  position: relative;
   width: 100px;
   height: 100px;
   background-color: $logoBG;
@@ -48,12 +66,30 @@ body {
   margin: 20px auto;
 }
 
-#hint{
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: space-between;
-  ul {
-    list-style-type: none;
+.tooltip {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-color: $logoBG;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 15px;
+  bottom: 45px;
+  color: white;
+  cursor: pointer;
+}
+
+.top {
+  position: relative;
+}
+
+#result {
+  p{
+    width: 80%;
+    max-width: 750px;
+    font-size: 1.3em;
   }
 }
 
@@ -61,6 +97,25 @@ body {
  color: $muted;
 }
 
+.highlite {
+  background-color: orange;
+  text-transform: uppercase;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
 .hidden {
   display: none;
+}
+
+.alert {
+  color: #E68583;
+}
+
+.topTen {
+  margin-top: 10px;
+}
+
+.rightTen {
+  margin-right: 10px;
 }

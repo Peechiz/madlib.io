@@ -19,10 +19,135 @@ $(function(){
   }
   var currentSection = 'input1';
 
+  var jiggle = new Bounce();
+
+  jiggle
+    .scale({
+    from: { x: .5, y: 1 },
+    to: { x: 1, y: 1 },
+    stiffness: 1,
+    })
+    .scale({
+    from: { x: 1, y: .5 },
+    to: { x: 1, y: 1 },
+    stiffness: 1,
+  });
+
+  var jiggleSM = new Bounce();
+
+  jiggleSM
+    .scale({
+    from: { x: .9, y: 1 },
+    to: { x: 1, y: 1 },
+    stiffness: 1,
+    bounces: 3
+    })
+    .scale({
+    from: { x: 1, y: .9 },
+    to: { x: 1, y: 1 },
+    stiffness: 1,
+    bounces: 3
+  });
+
+  var clock = new Bounce();
+
+  clock
+    .rotate({
+      from: 0,
+      to: 360,
+      delay: 200,
+      bounces: 4,
+      stiffness: 3
+    })
+    .scale({
+      from: { x: .2, y: 1 },
+      to: { x: 2, y: 1 },
+      bounces: 4,
+      stiffness: 3
+    })
+    .scale({
+      from: { x: 3, y: 1 },
+      to: { x: .5, y: 1 },
+      bounces: 4,
+      stiffness: 3,
+      delay: 400
+    });
+
+  var smack = new Bounce();
+
+  smack
+    .skew({
+      from: { x: 0, y: 0},
+      to: { x: 40, y: 60},
+      easing: 'sway',
+      duration: 750,
+      stiffness: 3
+    })
+    .scale({
+      from: { x: .5, y:.5 },
+      to: { x: 1, y: 1 },
+      duration: 750,
+      stiffness: 2
+    });
+
+  var runner = new Bounce();
+
+  runner
+    .translate({
+      from: { x: 0, y: 0 },
+      to: { x: 1000, y: 0 },
+      duration: 750,
+      bounces: 2,
+      stiffness: 5
+    })
+    .skew({
+      from: { x: 0, y: 0 },
+      to: { x: 50, y: 0 },
+      duration: 750,
+      bounces: 4,
+      stiffness: 3
+    })
+    .translate({
+      from: { x: -2000, y: 0 },
+      to: { x: -1000, y: 0 },
+      delay: 750,
+      bounces: 4,
+      stiffness: 3
+    })
+    .skew({
+      from: { x: 0, y: 0 },
+      to: { x: -50, y: 0 },
+      delay: 750,
+    });
+
+    var yay = new Bounce();
+
+    yay
+    .rotate({
+      from: 0,
+      to: 360,
+      stiffness: 1
+    })
+    .translate({
+      from: {x:0,y:0},
+      to: {x:0,y:-100},
+      easing: 'sway'
+    })
+
+
+  jiggle.applyTo($("#logo"));
+  // runner.applyTo($("#logo"));
+    // yay.applyTo($('#logo'));
+
+
+
   $(document).keypress(function(ev){
     if (ev.which === 13 && currentSection !== 'result'){
       var target = sectionButtons[currentSection];
       $(target).click();
+    }
+    else {
+      jiggleSM.applyTo($("#logo"));
     }
   })
 
@@ -88,6 +213,7 @@ $(function(){
   //----------------------------------------------------------//
 
   $('#submitText').click(function(){
+    clock.applyTo($('#logo'));
     currentSection = 'wildcard'
     transition($('#input1'),$('#wildcard'));
     $('#progress').progress({percent:25});
@@ -157,9 +283,17 @@ $(function(){
     $('#wildcard .field:nth-of-type(2)').append('<button class="ui primary button" id="submitWildcards">Submit</button>')
 
     $('#wildcard .field:nth-of-type(1) > .button').click(function(){
+      smack.applyTo($('#logo'));
       var word = $(this).text();
+      var curBtn = $(this);
       parsed_word = word.replace(/\W/g,'');
       var index = $(this).attr('data');
+      var disable = function() {
+        curBtn.addClass('disabled');
+        curBtn.removeClass('basic');
+        curBtn.removeClass('green');
+        curBtn.removeClass('wildcard');
+      }
 
       if (parsed_word && !cache[word]) {
         $.ajax({
@@ -172,16 +306,18 @@ $(function(){
             console.log(word + ': ' + pos);
             userInputArray[index].partOfSpeech = pos;
             if (badPOS(pos)){
-              // $(this).addClass('disabled');
-              // no, give that to the actual word
+              disable();
+            }
+            else {
+              cache[word] = pos;
             }
           }
           else {
             console.log(word + ': not found!');
             userInputArray[index].partOfSpeech = '?';
+            cache[word] = pos;
           }
-          cache[word] = pos;
-          console.log(cache);
+          // console.log(cache);
         });
       }
       else if (cache[word]) {
@@ -228,6 +364,7 @@ $(function(){
         }
       }
       else {
+        jiggle.applyTo($("#logo"));
         currentSection = 'hints';
         transition($('#wildcard'),$('#hints'));
         $('#progress').progress({percent:50});
@@ -264,6 +401,7 @@ $(function(){
         })
 
         if (goodhints){
+          runner.applyTo($("#logo"));
           currentSection = 'madlib';
           transition($('#hints'),$('#madlib'));
           $('#progress').progress({percent:75});
@@ -302,6 +440,8 @@ $(function(){
         $('#submitMadlib').click(function(){
           // make sure it's filled out first
           if (checkCompletion($('#madlib input'))){
+            yay.applyTo($('#logo'));
+            $('#logo,.tooltip').css('background-color', '#21BA45');
             currentSection = 'result';
             transition($('#madlib'),$('#result'));
             $('#progress').progress({percent:100});

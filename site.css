@@ -2,9 +2,12 @@
   font-family: 'Cabin';
   font-size: 1.5em; }
 
+h1 {
+  font-family: "Courgette"; }
+
 body {
   font-family: 'Cabin';
-  background-color: lightgrey; }
+  background-color: #4F6470; }
 
 #input1, #wildcard > .box, #result > .box {
   display: flex;
@@ -35,19 +38,20 @@ body {
   position: relative;
   width: 100px;
   height: 100px;
-  background-color: grey;
+  background-color: #F2711C;
   border-radius: 50%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 4.5em;
-  margin: 20px auto; }
+  margin: -30px auto;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); }
 
 .tooltip {
   position: absolute;
   height: 30px;
   width: 30px;
-  background-color: grey;
+  background-color: #F2711C;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -55,10 +59,15 @@ body {
   right: 15px;
   bottom: 45px;
   color: white;
-  cursor: pointer; }
+  font-size: 1.2em;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); }
 
 .top {
-  position: relative; }
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 50px; }
 
 #result p {
   width: 80%;
@@ -69,7 +78,7 @@ body {
   color: #D3D3D3; }
 
 .highlite {
-  background-color: orange;
+  background-color: #21BA45;
   text-transform: uppercase;
   padding: 2px 4px;
   border-radius: 3px; }

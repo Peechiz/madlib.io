@@ -6,7 +6,25 @@ $(function(){
   var madlibName = '';
   var manifesto = $('.manifesto').text();
   var cache = {};
-  var crappyPartsOfSpeech = ['definite-article','preposition','abbreviation','pronoun','conjunction'];
+  var crappyPartsOfSpeech = ['definite-article','abbreviation','pronoun','conjunction'];
+  var crapWords = 'the is a their it its of to and'.split(' ');
+  var hasAlert = false;
+  var hintHasAlert = false;
+
+  var sectionButtons = {
+    'input1': '#submitText',
+    'wildcard': '#submitWildcards',
+    'hints': '#submitHints',
+    'madlib': '#submitMadlib',
+  }
+  var currentSection = 'input1';
+
+  $(document).keypress(function(ev){
+    if (ev.which === 13 && currentSection !== 'result'){
+      var target = sectionButtons[currentSection];
+      $(target).click();
+    }
+  })
 
   function colSplit(arr){
     var midpoint = Math.ceil(arr.length/2);
@@ -44,10 +62,33 @@ $(function(){
     return complete;
   }
 
+  function badPOS(pos){
+    for (var i = 0; i < crappyPartsOfSpeech.length; i++) {
+      if (pos === crappyPartsOfSpeech[i]){
+        return true;
+      }
+    }
+    return false;
+  }
 
-//--------------------Submit Text---------------------------//
+  function crapWord(word){
+    word = word.toLowerCase();
+    for (var i = 0; i < crapWords.length; i++) {
+      if (word === crapWords[i]){
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+
+  //----------------------------------------------------------//
+  //                      Submit Text                         //
+  //----------------------------------------------------------//
 
   $('#submitText').click(function(){
+    currentSection = 'wildcard'
     transition($('#input1'),$('#wildcard'));
     $('#progress').progress({percent:25});
     $(this).addClass('disabled');
@@ -63,7 +104,7 @@ $(function(){
     // newlines are magically # instead
     inputStr = inputStr.replace(/\n/g,' # ');
     userInputArray = inputStr.split(/\s+/g);
-    
+
     userInputArray = userInputArray.reduce(function(arr,item,index){
       arr.push({
         'text':item,
@@ -95,7 +136,15 @@ $(function(){
     console.log(userInputArray);
 
     userInputArray.forEach(function(x){
-      $('#wildcard .field:nth-of-type(1)').append(`<div data='${x.index}' class="ui basic toggle button tiny">${x.text}</div>`);
+      var crappy = '';
+      var basic = 'basic'
+      if (crapWord(x.text)){
+        crappy = 'disabled';
+        basic = '';
+      }
+
+      $('#wildcard .field:nth-of-type(1)').append(`<div data='${x.index}' class="ui ${basic} toggle button tiny ${crappy}">${x.text}</div>`);
+
     });
 
     // hide those damn newlines, those aren't words, dawg.
@@ -122,6 +171,10 @@ $(function(){
             pos = checkPOS(data);
             console.log(word + ': ' + pos);
             userInputArray[index].partOfSpeech = pos;
+            if (badPOS(pos)){
+              // $(this).addClass('disabled');
+              // no, give that to the actual word
+            }
           }
           else {
             console.log(word + ': not found!');
@@ -139,7 +192,6 @@ $(function(){
         console.log('not actually a word');
         userInputArray[index].partOfSpeech = '?';
         $(this).addClass('disabled');
-        $(this).attr('data-content',"This isn't really a good wildcard.  Pick something else.");
       }
 
       $(this).toggleClass('basic');
@@ -151,7 +203,12 @@ $(function(){
       userInputArray[index].toggle();
     });
 
-    //-----------------Submit Wildcards------------------------//
+
+
+    //----------------------------------------------------------//
+    //                      Submit Wildcards                    //
+    //----------------------------------------------------------//
+
     var wildcardsPicked = false;
     var wildCardsError = false;
     $('#submitWildcards').click(function(){
@@ -171,6 +228,7 @@ $(function(){
         }
       }
       else {
+        currentSection = 'hints';
         transition($('#wildcard'),$('#hints'));
         $('#progress').progress({percent:50});
         $(this).addClass('disabled');
@@ -191,36 +249,60 @@ $(function(){
       } // end check for wildcardsPicked
 
 
-      //--------------------Submit Hints------------------------//
+
+      //----------------------------------------------------------//
+      //                      Submit Hints                        //
+      //----------------------------------------------------------//
 
       $('#submitHints').click(function(){
-        transition($('#hints'),$('#madlib'));
-        $('#progress').progress({percent:75});
-        $(this).addClass('disabled');
+        var goodhints = true;
+        // if hints have ? throw an error.
         $('#hints input').each(function(){
-          userInputArray[$(this).attr('data')].wildcardText = $(this).val() || $(this).attr('placeholder');
-        });
+          if ($(this).attr('placeholder')==='?' && !$(this).val()){
+            goodhints = false;
+          }
+        })
 
-        wildcardArr = userInputArray.filter(function(x){
-          return x.wildcard
-        });
+        if (goodhints){
+          currentSection = 'madlib';
+          transition($('#hints'),$('#madlib'));
+          $('#progress').progress({percent:75});
+          $(this).addClass('disabled');
+          $('#hints input').each(function(){
+            userInputArray[$(this).attr('data')].wildcardText = $(this).val() || $(this).attr('placeholder');
+          });
 
-        colSplit(wildcardArr).col1.forEach(function(x){
-          $('#madlib .col1').append(`<div class="field"><div class="ui left corner labeled input small"><input type="text" placeholder="${x.wildcardText}" data="${x.index}"><div class="ui left corner label"><i class="asterisk icon"></i></div></div></div>`)
-        });
+          wildcardArr = userInputArray.filter(function(x){
+            return x.wildcard
+          });
 
-        colSplit(wildcardArr).col2.forEach(function(x){
-          $('#madlib .col2').append(`<div class="field"><div class="ui left corner labeled input small"><input type="text" placeholder="${x.wildcardText}" data="${x.index}"><div class="ui left corner label"><i class="asterisk icon"></i></div></div></div>`)
-        });
+          colSplit(wildcardArr).col1.forEach(function(x){
+            $('#madlib .col1').append(`<div class="field"><div class="ui left corner labeled input small"><input type="text" placeholder="${x.wildcardText}" data="${x.index}"><div class="ui left corner label"><i class="asterisk icon"></i></div></div></div>`)
+          });
 
-        $('#madlib .col2').append('<div class="field"><button class="ui primary button" id="submitMadlib">Submit</button></div>');
+          colSplit(wildcardArr).col2.forEach(function(x){
+            $('#madlib .col2').append(`<div class="field"><div class="ui left corner labeled input small"><input type="text" placeholder="${x.wildcardText}" data="${x.index}"><div class="ui left corner label"><i class="asterisk icon"></i></div></div></div>`)
+          });
 
-        //--------------------Submit Madlib------------------------//
+          $('#madlib .col2').append('<div class="field"><button class="ui primary button" id="submitMadlib">Submit</button></div>');
+        }
+        else {
+          if (!hintHasAlert){
+            $('#hints button').parent().prepend('<span class="alert rightTen">\'?\' isn\'t a very good hint. </span>');
+            hintHasAlert = true;
+          }
+        }
+
+
+
+        //----------------------------------------------------------//
+        //                      Submit Madlib                       //
+        //----------------------------------------------------------//
 
         $('#submitMadlib').click(function(){
           // make sure it's filled out first
-
           if (checkCompletion($('#madlib input'))){
+            currentSection = 'result';
             transition($('#madlib'),$('#result'));
             $('#progress').progress({percent:100});
             $('#progress').removeClass('orange').addClass('green');
@@ -260,13 +342,12 @@ $(function(){
               if (!$(this).val()){
                 $(this).parent().addClass('error');
               }
-            })
-            if (!$('#madlib').has('span').length){
-              $('#madlib button').parent().prepend('<span class="alert rightTen">Oops! You forgot something. </span>')
-              console.log($('#madlib').has('span'));
+            });
+            if (!hasAlert){
+              $('#madlib button').parent().prepend('<span class="alert rightTen">Oops! You forgot something. </span>');
+              hasAlert = true;
             }
           } // end checkCompletion
-
         }) // end submit madlib
       }) // end submit Hints
     }) // end submit Wildcards

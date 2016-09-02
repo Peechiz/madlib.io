@@ -12,7 +12,7 @@ $(function(){
   var hintHasAlert = false;
 
   var sectionButtons = {
-    'input1': '#submitText',
+    'input1': 'null',
     'wildcard': '#submitWildcards',
     'hints': '#submitHints',
     'madlib': '#submitMadlib',
@@ -473,7 +473,6 @@ $(function(){
               }
             }).join(' ');
             // console.log(output);
-
             $('#result p').html(output);
           }
           else {
